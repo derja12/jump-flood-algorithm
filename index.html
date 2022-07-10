@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Drawing App</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="app">
+            <div id="button-area">
+                <div>
+                    <input type="number" v-model="newCanvasWidth"> x by <input type="number" v-model="newCanvasHeight"> y
+                    <button v-on:click="resetCanvasClick()">Update Dimensions</button>
+                </div>
+                <div>
+                    <input type="number" v-model="newSeedCount" v-show="!seedsPlanted">
+                    <button v-on:click="seedPicture(newSeedCount)" v-show="!seedsPlanted">Plant Voronoi Seeds</button>
+                    <div v-show="seedsPlanted" style="display: inline-block;">Current k: {{ JFA_K }}</div>
+                    <button v-on:click="iterateJFA()" v-show="seedsPlanted">{{ JFAButtonText }}</button>
+                </div>
+                <div>
+                    <button v-on:click="drawFancyRectangle()">Draw Fancy Rectangle</button>
+                </div>
+            </div>
+            <canvas id="canvas"></canvas>
+            
+            <button v-bind:disabled="dataIndex <= 0 || dataArray.length == 0" v-on:click="decrementCurrentDataIndex" class="button button__left">
+                <div class="button__arrow button__arrow--left"></div>
+            </button>
+            <button v-bind:disabled="dataIndex == dataArray.length-1 || dataArray.length == 0" v-on:click="incrementCurrentDataIndex" class="button button__right">
+                <div class="button__arrow button__arrow--right"></div>
+            </button>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+        <script src="app.js"></script>
+    </body>
+</html>
